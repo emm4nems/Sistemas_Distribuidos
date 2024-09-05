@@ -1,5 +1,7 @@
+using System.CodeDom;
 using Microsoft.EntityFrameworkCore;
 using SoapApi.Contracts;
+using SoapApi.Dtos;
 using SoapApi.Infrastructure;
 using SoapApi.Mappers;
 using SoapApi.Models;
@@ -34,10 +36,51 @@ namespace SoapApi.Repositories{
             return users.Select(users => users.ToModel()).ToList();
         }
 
-        public Task<IList<UserModel>> GetAllByEmail(string email, CancellationToken cancellationToken)
+        public async Task DeleteByIdAsync (UserModel user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var userEntity = user.ToEntity();
+
+            _dbContext.Users.Remove(userEntity);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task <UserModel> CreateAsync(UserModel user, CancellationToken cancellationToken)
+        {
+            var userEntity = user.ToEntity();
+            userEntity.Id = Guid.NewGuid();
+            await _dbContext.AddAsync(userEntity, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return userEntity.ToModel();
+        }
+
+        //public async Task <UserModel> CreateAsync(UserModel user, CancellationToken cancellationToken)
+        //{
+         
+          //  user.Id = Guid.NewGuid();
+            //await _dbContext.AddAsync(user.ToEntity, cancellationToken);
+            //await _dbContext.SaveChangesAsync(cancellationToken);
+
+            //return user;
+        //}
+
+        public async Task <UserModel> UpdateAsync(UserModel user, CancellationToken cancellationToken)
+        {
+            var userEntity = await _dbContext.Users.FirstOrDefaultAsync(s => s.Id == user.Id, cancellationToken);
+            
+            userEntity.FirstName = user.FirstName;
+            userEntity.LastName = user.LastName;
+            userEntity.Birthday = user.BirthDate;
+
+            _dbContext.Users.Update(userEntity);
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return userEntity.ToModel();
+            
+        }
+
+        
 
     }
 }
