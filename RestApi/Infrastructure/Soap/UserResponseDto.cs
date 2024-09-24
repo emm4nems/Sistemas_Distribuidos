@@ -1,8 +1,6 @@
 using System.Runtime.Serialization;
 
-
-namespace RestApi.Infrastructure.Soap.SoapContracts;
-
+namespace RestApi.Infrasctructure.Soap.SoapContracts;
 
 [DataContract]
 
@@ -19,6 +17,5 @@ public class UserResponseDto
         public String LastName {get; set; } = null!;
         [DataMember]
         public DateTime BirthDate {get; set; }
-    
 }
 

@@ -1,14 +1,9 @@
+using RestApi.Models;
 
 namespace RestApi.Services;
 
 public interface IGroupService{
-    
-    Task<GroupUserModel> GetGroupByIdAsync(string id, CancellationToken cancellationToken);
+    Task <GroupUserModel> GetGroupByIdAsync(string id, CancellationToken cancellationToken);
+    Task<IList<GroupUserModel>> GetGroupsByNameAsync(string name, int pageNumber, int pageSize, string orderBy, CancellationToken cancellationToken);
 }
 
-public class GroupUserModel
-{
-    public string Id { get; internal set; }
-    public string Name { get; internal set; }
-    public DateTime CreationDate { get; internal set; }
-}

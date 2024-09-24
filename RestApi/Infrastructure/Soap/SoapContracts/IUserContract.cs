@@ -1,6 +1,7 @@
 using System.ServiceModel;
 
-namespace RestApi.Infrastructure.Soap.SoapContracts;
+
+namespace RestApi.Infrasctructure.Soap.SoapContracts;
 
 [ServiceContract]
 public interface IUserContract
@@ -17,5 +18,6 @@ public interface IUserContract
 
     [OperationContract]
     public Task<bool> DeleteUserById (Guid userId, CancellationToken cancellationToken);
+
 }
 
