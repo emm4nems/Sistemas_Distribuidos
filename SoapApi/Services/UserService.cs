@@ -38,6 +38,7 @@ public class UserService : IUserContract
             return users2.Select(user => user.ToDto()).ToList();
         }
         throw new FaultException(reason: "There is no user with " + email + " email");
+
     }
 
     public async Task<UserResponseDto> GetUserById(Guid userId, CancellationToken cancellationToken)
