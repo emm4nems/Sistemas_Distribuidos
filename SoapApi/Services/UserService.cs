@@ -38,9 +38,7 @@ public class UserService : IUserContract
             return users2.Select(user => user.ToDto()).ToList();
         }
         throw new FaultException(reason: "There is no user with " + email + " email");
-        
 
-        throw new NotImplementedException();
     }
 
     public async Task<UserResponseDto> GetUserById(Guid userId, CancellationToken cancellationToken)
@@ -53,4 +51,46 @@ public class UserService : IUserContract
 
         throw new FaultException(reason: "User not found");
     }
+
+    public async Task<bool> DeleteUserById (Guid userId, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetByIdAsync(userId,  cancellationToken);
+
+        if (user is null){
+            throw new FaultException("User not found");
+        }
+
+        await _userRepository.DeleteByIdAsync(user, cancellationToken);
+        return true;
+    }
+
+    public async Task<UserResponseDto> CreateUser(UserCreateRequestDto userRequest, CancellationToken cancellationToken)
+    {
+        var user = userRequest.ToModel();
+        var createdUser = await _userRepository.CreateAsync(user, cancellationToken);
+        return createdUser.ToDto();
+    }
+
+    public async Task<UserResponseDto> UpdateUser(Guid userId, UserUpdateRequestDto userRequest, CancellationToken cancellationToken)
+    {
+
+    var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
+
+    if (user is null)
+    {
+        throw new FaultException($"User with ID {userId} not found.");
+    }
+
+    // Update user fields
+    user.FirstName = userRequest.FirstName;
+    user.LastName = userRequest.LastName;
+    user.BirthDate = userRequest.Birthday; 
+
+    // Save updated user
+    var updatedUser = await _userRepository.UpdateAsync(user, cancellationToken);
+
+
+    return updatedUser.ToDto();
+}
+
 }
