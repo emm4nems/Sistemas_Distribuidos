@@ -36,7 +36,6 @@ namespace SoapApi.Repositories{
             var users = await _dbContext.Users.AsNoTracking().Where(s => s.Email.Contains(email)).ToListAsync(cancellationToken);
             return users.Select(users => users.ToModel()).ToList();
         }
-
         public async Task DeleteByIdAsync (UserModel user, CancellationToken cancellationToken)
         {
             var userEntity = user.ToEntity();
@@ -44,6 +43,7 @@ namespace SoapApi.Repositories{
             _dbContext.Users.Remove(userEntity);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
+
 
         public async Task <UserModel> CreateAsync(UserModel user, CancellationToken cancellationToken)
         {
@@ -80,8 +80,6 @@ namespace SoapApi.Repositories{
             return userEntity.ToModel();
             
         }
-
-        
 
     }
 }
