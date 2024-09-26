@@ -20,4 +20,5 @@ var app = builder.Build();
 app.UseSoapEndpoint<IUserContract>("/UserService.svc", new SoapEncoderOptions());
 app.UseSoapEndpoint<IBookContract>("/BookService.svc", new SoapEncoderOptions());
 
+
 app.Run();

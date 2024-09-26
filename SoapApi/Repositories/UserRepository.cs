@@ -44,6 +44,7 @@ namespace SoapApi.Repositories{
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
+
         public async Task <UserModel> CreateAsync(UserModel user, CancellationToken cancellationToken)
         {
             var userEntity = user.ToEntity();
@@ -79,5 +80,6 @@ namespace SoapApi.Repositories{
             return userEntity.ToModel();
             
         }
+
     }
 }

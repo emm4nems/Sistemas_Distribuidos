@@ -127,7 +127,4 @@ public class UserService : IUserContract
     //     </tem:UpdateUser>
     // </soapenv:Body>
     // </soapenv:Envelope>
-
-
-
 }

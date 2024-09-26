@@ -1,7 +1,6 @@
 using System.ServiceModel;
-using SoapApi.Dtos;
 
-namespace SoapApi.Contracts;
+namespace RestApi.Infrastructure.Soap.SoapContracts;
 
 [ServiceContract]
 public interface IUserContract
@@ -18,13 +17,5 @@ public interface IUserContract
 
     [OperationContract]
     public Task<bool> DeleteUserById (Guid userId, CancellationToken cancellationToken);
-
-    [OperationContract]
-    public Task<UserResponseDto> CreateUser(UserCreateRequestDto user, CancellationToken cancellationToken);
-
-    [OperationContract]
-    public Task<UserResponseDto> UpdateUser(Guid userId, UserUpdateRequestDto user, CancellationToken cancellationToken);
-
 }
-
 

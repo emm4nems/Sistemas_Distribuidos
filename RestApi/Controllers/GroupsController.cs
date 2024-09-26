@@ -19,6 +19,7 @@ public class GroupsController : ControllerBase {
     [HttpGet("{id}")]
     public async Task <ActionResult<GroupResponse>> GetGroupById(string id, CancellationToken cancellationToken){
         var group = await _groupService.GetGroupByIdAsync(id, cancellationToken);
+        
         if (group is null){
             return NotFound();
         }
