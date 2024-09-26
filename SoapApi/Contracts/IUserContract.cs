@@ -24,9 +24,6 @@ public interface IUserContract
 
     [OperationContract]
     public Task<UserResponseDto> UpdateUser(Guid userId, UserUpdateRequestDto user, CancellationToken cancellationToken);
-    //LastName
-    //FirstName
-    //BirthDays
-    //userId
+
 }
 
