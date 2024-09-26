@@ -86,7 +86,6 @@ public class UserService : IUserContract
         // </soapenv:Envelope>
         }
 
-
     public async Task<UserResponseDto> UpdateUser(Guid userId, UserUpdateRequestDto userRequest, CancellationToken cancellationToken)
     {
 
